@@ -10,7 +10,7 @@ export const SecondSolution = ({children}: SecondSolutionPropsType) => {
 
     return (
         <>
-            <h3>SecondSolution</h3>
+            <h3>Children</h3>
             <input value={value}
                    onChange={e => setValue(e.target.value)}
             />
