@@ -1,47 +1,47 @@
 import {useEffect} from 'react';
 import {InnerComponent} from "./InnerComponent";
 
-//лишняя обертка перед InnerComponent заставит размаунтить и замаунтить весь узер div-2 и все что внутри
+//лишняя обертка перед InnerComponent заставит размаунтить и замаунтить весь узел div и все что внутри
 export const AppendToDom = ({isShowText}: { isShowText: boolean }) => {
     useEffect(() => {
-        console.log('Первая бибика effect mount');
-        return () => console.log('Первая бибика');
+        console.log('Первая картинка effect mount');
+        return () => console.log('Первая картинка');
     }, []);
 
     if (isShowText) {
         return (
-            <div className='div-1'>
-                <div className='div-2'>
-                    <InnerComponent title='InnerComponent Первая бибика' />
-                    <span>Какая крутая машина</span>
+            <div>
+                <div>
+                    <InnerComponent title='InnerComponent Первая картинка' />
+                    <span>Title</span>
                 </div>
             </div>
         );
     }
     return (
-        <div className='div-1'>
-            <InnerComponent title='InnerComponent Первая бибика' />
+        <div>
+            <InnerComponent title='InnerComponent Первая картинка ' />
         </div>
     );
 };
-//так как у нас span и InnerComponent поменялись местами, происходит маунт-анмаунт
+//так как  span и InnerComponent поменялись местами, происходит маунт-анмаунт
 export const AppendToDomReversSpan = ({isShowText}: { isShowText: boolean }) => {
     useEffect(() => {
-        console.log('Вторая бибика effect unmount');
-        return () => console.log('Вторая бибика effect unmount');
+        console.log('Вторая картинка effect unmount');
+        return () => console.log('Вторая картинка effect unmount');
     }, []);
 
     if (isShowText) {
         return (
-            <div className='div-1'>
-                <span>Какая крутая машина</span>
-                <InnerComponent title='InnerComponent Вторая бибика' />
+            <div>
+                <span>Title</span>
+                <InnerComponent title='InnerComponent Вторая картинка ' />
             </div>
         );
     }
     return (
-        <div className='div-1'>
-            <InnerComponent title='InnerComponent Вторая бибика' />
+        <div>
+            <InnerComponent title='InnerComponent Вторая картинка ' />
         </div>
     );
 };

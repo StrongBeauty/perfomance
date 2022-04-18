@@ -1,13 +1,14 @@
 import {useCallback, useMemo, useState} from "react";
-import {Car} from "./Car";
+import {Child} from "./Child";
+import {CarFragmented} from "./CarFragment";
 
-export const List = () => {
-    //setState из коробки закеширована, поэтому нет смысла оборачивать в useCallback
-    const [, forceUpdate] = useState({})
-    const [, setCount] = useState(0);
-    const [someBigData, setSomeBigData] = useState({
-        title: 'SOME_BIG_DATA',
-        list: [{
+/*Чтобы не создавать мемо, констакты надо хранить вне компонента, чтобы они каждый раз не пересоздавались,
+* их лучше не передавать через пропсы, а сразу импортировать студа, куда нужно */
+
+const INNER_LIST = {inner_list_name: 'Моя мечта'};
+const SomeBigData = {
+    title: 'SOME_BIG_DATA',
+    list: [{
         id: '1',
         model: 'Porsche',
         hp: 300,
@@ -19,20 +20,22 @@ export const List = () => {
             hp: 356,
             img: 'img2',
         },
-    ]}
-    )
+    ]
+}
+export const List = () => {
+    //setState из коробки закеширована, поэтому нет смысла оборачивать в useCallback
+    const [, forceUpdate] = useState({})
+    const [, setCount] = useState(0);
+    const [someBigData, setSomeBigData] = useState(SomeBigData)
 
     const onCarClick = useCallback((car: any, id: string) => {
-        //Удаляем
-        // setCarList((prevState => prevState.filter(car => car.id !== id)));
-        //Добавляем  import SuperCar
-        // setCarList((prevState => [...prevState, {id: String(new Date()), hp: 100, model: 'Бибика', img: SuperCar}]));
         if (typeof car === 'string') {
             return console.log(car, 'console log parent');
         }
         console.log(car.model, 'console log parent');
     }, []);
 
+    //Если убрать useCallback и новая ссылка будет причиной рендера ребенка
     const changeModel = useCallback((id: string, value: string) => {
         setSomeBigData((prevState => ({
             ...prevState, list: prevState.list.map(car => {
@@ -52,46 +55,69 @@ export const List = () => {
 
     };
 
-    const INNER_LIST = {inner_list_name: 'Моя мечта'};
-    //Если в депенденси useMemo новую ссылку объект, useMemo работать не будет
+
+    //Если в депенденси useMemo новую ссылку на объект, useMemo работать не будет
     // Депенденси работают аналогично memo - примитивы по значению, не примитивы по ссылкам
     const MEMO_INNER_LIST = useMemo(() => INNER_LIST, []);
 
     return (
         <>
-            <p>При нажатии я ререндерю всю страницу</p>
-            <button title='FORCE UPDATE'
-                      onClick={forceUpdateHandler}>click</button>
-            {someBigData.list.map((car => {
-                console.log('render render');
-                return (<Car
-                    key={car.id}
-                    {...{
-                        title: 'Car Good props',
-                        car,
-                        onCarClick,
-                        setCount,
-                        changeModel,
-                        nonPrimitive: [{id: 10}],
-                        listName: INNER_LIST.inner_list_name
-                    }}
-                />);
-            }))}
-            {someBigData.list.map((car => {
-                console.log('render Bad');
-                return (<Car
-                    key={car.id}
-                    {...{
-                        car,
-                        title: 'Car Bad props',
-                        onCarClick,
-                        setCount,
-                        changeModel,
-                        nonPrimitive: INNER_LIST,
-                        listName: INNER_LIST
-                    }}
-                />);
-            }))}
+            <div>
+                <p>При нажатии я ререндерю всю страницу</p>
+                <button title='FORCE UPDATE'
+                        onClick={forceUpdateHandler}>click
+                </button>
+            </div>
+            <div style={{margin: '30px'}}>
+                {someBigData.list.map((car => {
+                    console.log('render render');
+                    return (<Child
+                        key={car.id}
+                        {...{
+                            title: 'Good props',
+                            car,
+                            onCarClick,
+                            setCount,
+                            changeModel,
+                            nonPrimitive: [{id: 10}],
+                            listName: INNER_LIST.inner_list_name
+                        }}
+                    />);
+                }))}
+            </div>
+            <div style={{margin: '30px'}}>
+                {someBigData.list.map(car => {
+                    console.log('render Good');
+                    return (<CarFragmented
+                        key={car.id}
+                        title='Fragmented Good props'
+                        nonPrimitive={MEMO_INNER_LIST}
+                        model={car.model}
+                        id={car.id}
+                        hp={car.hp}
+                        img={car.img}
+                        listName={INNER_LIST.inner_list_name}
+                        {...{onCarClick, setCount, changeModel}}
+                    />);
+                })}
+            </div>
+            <div style={{margin: '30px'}}>
+                {someBigData.list.map((car => {
+                    console.log('render Bad');
+                    return (<Child
+                        key={car.id}
+                        {...{
+                            car,
+                            title: 'Bad props',
+                            onCarClick,
+                            setCount,
+                            changeModel,
+                            nonPrimitive: INNER_LIST,
+                            listName: INNER_LIST
+                        }}
+                    />);
+                }))}
+            </div>
         </>
     )
 }

@@ -1,12 +1,35 @@
-# Getting Started with Create React App
+# Performance
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* Быстрота первой загрузки сайта
+* Плавность анимации
+* Отсутствие блокировки браузера
+* Скорость перходов по страницам
 
-## Available Scripts
+## На Performance влияет
 
-In the project directory, you can run:
+* Медленный бэк
+* Медленный рэндерниг
+* Размер бандла
+* Блокирующий CSS
+* Количество перерисовок
+* Качество кода, примененные алгоритмы
 
-### `npm start`
+## Инструменты для поиска проблем
+
+* Lighthouse
+* React DevTools
+* Tab Performance
+* Tab Network
+
+
+## Best practices for Performance
+
+* Правильная компановка компонент для исключения взаимного рендеринга
+* Не допуск сложности O(n^2)
+* Использование useMemo для сложных вычислений
+* Использование useMemo. useCallback, memo только там, где это необходимо
+* Правильные зависимости в useEffect для предотвращения лишних рендеров
+* Передача функций из вне вместо обертки в useMemo и useCallback
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

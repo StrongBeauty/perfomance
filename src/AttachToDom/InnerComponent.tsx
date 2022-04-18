@@ -13,7 +13,7 @@ export const InnerComponent = ({title}: { title: string }) => {
         <div>
             <div>
                 <div>
-                    {<img src='img' alt='Logo' width='250px' height='200px'/>}
+                    {<img src='' alt='Logo' />}
                 </div>
             </div>
         </div>

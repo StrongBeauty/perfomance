@@ -3,60 +3,60 @@ import {InnerComponent} from "./InnerComponent";
 
 export const NotAppendToDomAmpersands = ({isShowText}: { isShowText: boolean }) => {
     useEffect(() => {
-        console.log('Третья бибика effect mount');
+        console.log('Третья картинка effect mount');
         return () => console.log('Третья бибика effect unmount');
     }, []);
 //А тут все отрабатывает правильно, {} рассматривается как один и тот же блок
     return (
-        <div className='div-1'>
-            {isShowText && <span>Какая крутая машина</span>}
-            <InnerComponent title='InnerComponent Третья бибика' />
+        <div>
+            {isShowText && <span>Title</span>}
+            <InnerComponent title='InnerComponent Третья картинка' />
         </div>
     );
 };
 
 
-//порядок не компонент не поменялся - не пе аппендим
+//порядок компонент не поменялся - не перемонтируется
 export const NotAppendToDom = ({isShowText}: { isShowText: boolean }) => {
     useEffect(() => {
-        console.log('Четвертая бибика effect mount');
-        return () => console.log('Четвертая бибика effect unmount');
+        console.log('Четвертая картинка effect mount');
+        return () => console.log('Четвертая картинка effect unmount');
     }, []);
 
 
     if (isShowText) {
         return (
-            <div className='div-1'>
-                <InnerComponent title='InnerComponent Четвертая бибика' />
-                <span>Какая крутая машина</span>
+            <div>
+                <InnerComponent title='InnerComponent Четвертая картинка' />
+                <span>Title</span>
             </div>
         );
     }
     return (
-        <div className='div-1'>
-            <InnerComponent title='InnerComponent Четвертая бибика' />
+        <div>
+            <InnerComponent title='InnerComponent Четвертая картинка' />
         </div>
     );
 };
 
-//У InnerComponent есть ключь, поэтому размаунта и маунта компонента не происходит
+//У InnerComponent есть ключ, поэтому размаунта и маунта компонента не происходит
 export const NotAppendWithKey = ({isShowText}: { isShowText: boolean }) => {
     useEffect(() => {
-        console.log('Пятая бибика effect mount');
-        return () => console.log('Пятая бибика effect unmount');
+        console.log('Пятая картинка effect mount');
+        return () => console.log('Пятая картинка effect unmount');
     }, []);
 
     if (isShowText) {
         return (
-            <div className='div-1'>
-                <span>Какая крутая машина</span>
-                <InnerComponent key='InnerComponent' title='InnerComponent Пятая бибика' />
+            <div>
+                <span>Title</span>
+                <InnerComponent key='InnerComponent' title='InnerComponent Пятая картинка' />
             </div>
         );
     }
     return (
-        <div className='div-1'>
-            <InnerComponent key='InnerComponent' title='Пятая бибика' />
+        <div>
+            <InnerComponent key='InnerComponent' title='Пятая картинка' />
         </div>
     );
 };

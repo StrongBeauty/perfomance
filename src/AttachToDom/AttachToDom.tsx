@@ -12,26 +12,26 @@ export const ExampleAppendToDom = () => {
     return (
         <>
             <div>
-                <span>Первая бибика с ремаунтом картинки</span>
+                <span>Первая картинка с ремаунтом </span>
                 <AppendToDom {...{isShowText}} />
             </div>
             <div>
-                <p>Вторая бибика с ремаунтом картинки</p>
+                <p>Вторая картинка с ремаунтом </p>
                 <AppendToDomReversSpan {...{isShowText}} />
             </div>
             <div>
-                <p>Третья бибика без ремаунта картинки</p>
+                <p>Третья картинка без ремаунта</p>
                 <NotAppendToDomAmpersands {...{isShowText}} />
             </div>
             <div>
-                <p>Четвертая бибика без ремаунта картинки</p>
+                <p>Четвертая картинка без ремаунта</p>
                 <NotAppendToDom {...{isShowText}} />
             </div>
             <div>
-                <p>Пятая бибика без ремаунта картинки</p>
+                <p>Пятая картинка без ремаунта</p>
                 <NotAppendWithKey {...{isShowText}} />
             </div>
-            <button title='Change view' className='w-300' onClick={changeView}>click</button>
+            <button onClick={changeView}>click</button>
         </>
     );
 };
