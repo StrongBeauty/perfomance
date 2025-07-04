@@ -1,20 +1,20 @@
 # Performance
 
-* Быстрота первой загрузки сайта
-* Плавность анимации
-* Отсутствие блокировки браузера
-* Скорость перходов по страницам
+* First load speed of the site
+* Smooth animation
+* No browser blocking
+* Page transition speed
 
-## На Performance влияет
+## Performance is affected by
 
-* Медленный бэк
-* Медленный рэндерниг
-* Размер бандла
-* Блокирующий CSS
-* Количество перерисовок
-* Качество кода, примененные алгоритмы
+* Slow backend
+* Slow rendering
+* Bundle size
+* Blocking CSS
+* Number of redraws
+* Code quality, applied algorithms
 
-## Инструменты для поиска проблем
+## Tools for finding problems
 
 * Lighthouse
 * React DevTools
@@ -24,9 +24,9 @@
 
 ## Best practices for Performance
 
-* Правильная компановка компонент для исключения взаимного рендеринга
-* Не допуск сложности O(n^2)
-* Использование useMemo для сложных вычислений
-* Использование useMemo. useCallback, memo только там, где это необходимо
-* Правильные зависимости в useEffect для предотвращения лишних рендеров
-* Передача функций из вне вместо обертки в useMemo и useCallback
+* Proper layout of components to avoid mutual rendering
+* Avoiding O(n^2) complexity
+* Using useMemo for complex calculations
+* Using useMemo. useCallback, memo only where necessary
+* Proper dependencies in useEffect to avoid unnecessary renderings
+* Passing functions from outside instead of wrapping them in useMemo and useCallback
